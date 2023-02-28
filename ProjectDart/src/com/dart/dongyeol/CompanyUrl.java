@@ -97,7 +97,7 @@ public class CompanyUrl {
 		String corp_code = null;
 		
 		try {
-			FileInputStream file = new FileInputStream("C:\\Users\\qoehd\\eclipse-workspace\\ProjectDart\\src\\com\\dart\\dongyeol\\CropCode.xlsx");
+			FileInputStream file = new FileInputStream("./src/com/dart/dongyeol/Cropcode.xlsx");
 			XSSFWorkbook workbook = new XSSFWorkbook(file);
 			XSSFSheet sheet = workbook.getSheetAt(0);
 			
