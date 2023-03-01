@@ -8,8 +8,8 @@ public class Test {
 
 	public static void main(String[] args) {
 		CorpFinanceData corp = new CorpFinanceData();
-		HashMap<Object, Object> corpData = corp.getFinancialData();
-		System.out.println(corpData.get("매출액"));
+		HashMap<String, Long> corpData = corp.getFinancialData();
+		System.out.println(corpData.get("영업활동현금흐름"));
 		
 	}
 }

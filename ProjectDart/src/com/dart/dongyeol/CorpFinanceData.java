@@ -10,15 +10,12 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 
-
-
-
 public class CorpFinanceData {
 	
 
-	private HashMap<Object, Object> financialData;
+	private HashMap<String, Long> financialData;
 	
-	public HashMap<Object, Object> getFinancialData() {
+	public HashMap<String, Long> getFinancialData() {
 		return financialData;
 	}
 
@@ -33,7 +30,7 @@ public class CorpFinanceData {
 			HttpURLConnection conn = url.getConnection();
 			
 			JSONArray jarray = null;
-			HashMap<Object, Object> financialData = new HashMap<Object,Object>();
+			HashMap<String, Long> financialData = new HashMap<String,Long>();
 			
 			int responseCode = conn.getResponseCode();
 			
@@ -50,19 +47,25 @@ public class CorpFinanceData {
 				JSONObject jobject = (JSONObject) jparser.parse(response);
 				jarray = (JSONArray) jobject.get("list");
 									
-			} else System.out.println("error");
+			} else System.out.println("응답에 실패했습니다.");
 			
+						
 			
 			for(int i=0;i<jarray.size();i++) {
 				JSONObject f = (JSONObject) jarray.get(i);
+				String account_nm= f.get("account_nm").toString();
+				String thstrm_amount = f.get("thstrm_amount").toString();
+				long amount;
 				
-				if(!f.get("sj_nm").equals("자본변동표")) financialData.put(f.get("account_nm"), f.get("thstrm_amount"));
+				if(thstrm_amount.equals("")) amount=0;
+				else amount=Long.parseLong(thstrm_amount);
+			
+				
+				if(!f.get("sj_nm").equals("자본변동표")) financialData.put(account_nm,amount);
 				else continue;
 				
-				//System.out.println(f.get("account_nm") + " : " + f.get("thstrm_amount"));
-				
-				
-				
+				//System.out.println(account_nm + " : " + amount);
+							
 			}
 			
 			this.financialData= financialData;
@@ -71,17 +74,8 @@ public class CorpFinanceData {
 			System.out.println("\n재무정보를 불러오는데 실패했습니다.");
 			e.printStackTrace();
 		}
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+			
+						
 	}
 	
 
