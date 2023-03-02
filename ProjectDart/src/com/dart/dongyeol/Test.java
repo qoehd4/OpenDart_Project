@@ -7,9 +7,12 @@ import java.util.HashMap;
 public class Test {
 
 	public static void main(String[] args) {
-		CorpFinanceData corp = new CorpFinanceData();
+		CorpFinanceData corp = new CorpFinanceData("182023b0d0bb93439f2cdd9f8f8ed93215fb72dd", "NAVER", "2020", "CFS");
 		HashMap<String, Long> corpData = corp.getFinancialData();
-		System.out.println(corpData.get("영업활동현금흐름"));
+		
+		for(String key:corpData.keySet()) {
+			System.out.println("{"+key+","+corpData.get(key)+"}");
+		}
 		
 	}
 }

@@ -18,6 +18,15 @@ public class CompanyUrl {
 	private HttpURLConnection connection = null;
 
 	
+	public HttpURLConnection getConnection() {
+		return connection;
+	}
+
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+	
 
 	public CompanyUrl()  {
 		super();
@@ -32,16 +41,24 @@ public class CompanyUrl {
 			e.printStackTrace();
 		}
 	}
-
-
-	public HttpURLConnection getConnection() {
-		return connection;
+	
+	// Overload
+	public CompanyUrl(String crtfc_key, String corpName , String bsns_year, String fs_div)  {
+		super();
+		try {
+			
+			System.out.println("url 잘못입력시 setUrl 사용");
+			buildUrl(crtfc_key, corpName, bsns_year, fs_div);
+			URL url = new URL(this.url);
+			this.connection = (HttpURLConnection) url.openConnection();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
+	//*****
 
 
-	public void setUrl(String url) {
-		this.url = url;
-	}
 
 
 	private void buildUrl() {
@@ -61,6 +78,26 @@ public class CompanyUrl {
 		this.url = url;
 		
 	}
+	
+	// OVerload
+	private void buildUrl(String crtfc_key, String corpName , String bsns_year, String fs_div) {
+		
+		String url = null;
+		String baseUrl = 
+		"https://opendart.fss.or.kr/api/fnlttSinglAcntAll.json?crtfc_key=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx&corp_code=name&bsns_year=date&reprt_code=11011&fs_div=type";
+		
+		
+		url=baseUrl.replace("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx", crtfc_key);
+		url=url.replace("name", findCorpcode(corpName));
+		url=url.replace("date", bsns_year);
+		url=url.replace("type", fs_div);
+		
+		this.url = url;
+		
+	}
+	//*******
+		
+		
 
 	private  String[] getParameters() {
 		
