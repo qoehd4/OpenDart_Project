@@ -61,7 +61,7 @@ public class CompanyUrl {
 
 
 
-	private void buildUrl() {
+	public void buildUrl() {
 		
 		String url = null;
 		String baseUrl = 
@@ -80,7 +80,7 @@ public class CompanyUrl {
 	}
 	
 	// OVerload
-	private void buildUrl(String crtfc_key, String corpName , String bsns_year, String fs_div) {
+	public void buildUrl(String crtfc_key, String corpName , String bsns_year, String fs_div) {
 		
 		String url = null;
 		String baseUrl = 
@@ -99,7 +99,7 @@ public class CompanyUrl {
 		
 		
 
-	private  String[] getParameters() {
+	public  String[] getParameters() {
 		
 		String[] parameters = new String[4];
 		
@@ -130,7 +130,7 @@ public class CompanyUrl {
 		
 		}
 
-	private String findCorpcode (String corpName) {
+	public static String findCorpcode (String corpName) {
 		String corp_code = null;
 		
 		try {
