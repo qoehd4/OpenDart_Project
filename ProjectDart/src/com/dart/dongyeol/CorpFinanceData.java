@@ -54,6 +54,11 @@ public class CorpFinanceData {
 			for(int i=0;i<jarray.size();i++) {
 				JSONObject f = (JSONObject) jarray.get(i);
 				String account_nm= f.get("account_nm").toString();
+				String sj_div= f.get("sj_div").toString();
+				String ord= f.get("ord").toString();
+				String keyValue = account_nm + "-" + sj_div + ord;
+				
+				
 				String thstrm_amount = f.get("thstrm_amount").toString();
 				long amount;
 				
@@ -61,7 +66,7 @@ public class CorpFinanceData {
 				else amount=Long.parseLong(thstrm_amount);
 			
 				
-				if(!f.get("sj_nm").equals("자본변동표")) financialData.put(account_nm,amount);
+				if(!f.get("sj_nm").equals("자본변동표")) financialData.put(keyValue,amount);
 				else continue;
 				
 				//System.out.println(account_nm + " : " + amount);
@@ -112,6 +117,11 @@ public class CorpFinanceData {
 			for(int i=0;i<jarray.size();i++) {
 				JSONObject f = (JSONObject) jarray.get(i);
 				String account_nm= f.get("account_nm").toString();
+				String sj_div= f.get("sj_div").toString();
+				String ord= f.get("ord").toString();
+				String keyValue = account_nm + "-" + sj_div + ord;
+				
+				
 				String thstrm_amount = f.get("thstrm_amount").toString();
 				long amount;
 				
@@ -119,7 +129,7 @@ public class CorpFinanceData {
 				else amount=Long.parseLong(thstrm_amount);
 			
 				
-				if(!f.get("sj_nm").equals("자본변동표")) financialData.put(account_nm,amount);
+				if(!f.get("sj_nm").equals("자본변동표")) financialData.put(keyValue,amount);
 				else continue;
 				
 				//System.out.println(account_nm + " : " + amount);

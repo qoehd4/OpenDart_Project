@@ -14,13 +14,13 @@ public class Test {
 		
 		for(String key:corpData.keySet()) {
 			accountNames.add(key);
-			//System.out.println("{"+key+":"+corpData.get(key)+"}");
+			System.out.println("{"+key+":"+corpData.get(key)+"}");
 		}
-		System.out.println(accountNames);
-		
-		long netIncome = corpData.get("당기순이익(손실)");
-		long paidDivdend = corpData.get("배당금");
-		System.out.println((double) paidDivdend/netIncome);
+//		System.out.println(accountNames);
+//		
+//		long netIncome = corpData.get("당기순이익(손실)");
+//		long paidDivdend = corpData.get("배당금");
+//		System.out.println((double) paidDivdend/netIncome);
 	
 		
 		
