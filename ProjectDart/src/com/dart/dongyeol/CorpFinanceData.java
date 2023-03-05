@@ -83,7 +83,7 @@ public class CorpFinanceData {
 						
 	}
 	
-	
+	//Overload
 	public CorpFinanceData(String crtfc_key, String corpName , String bsns_year, String fs_div) {
 		super();
 		
@@ -145,7 +145,7 @@ public class CorpFinanceData {
 			
 						
 	}
-	
+	//************
 
 
 }

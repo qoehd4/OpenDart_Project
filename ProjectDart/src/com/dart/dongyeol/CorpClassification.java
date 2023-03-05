@@ -12,7 +12,7 @@ public class CorpClassification {
 
 	public static void main(String[] args) throws Exception {
 		//182023b0d0bb93439f2cdd9f8f8ed93215fb72dd
-		String includedMarket = findMarket("182023b0d0bb93439f2cdd9f8f8ed93215fb72dd", "카카오");
+		String includedMarket = findMarket("182023b0d0bb93439f2cdd9f8f8ed93215fb72dd", "제우스");
 		
 		
 		if(includedMarket.equals("Y")) {
