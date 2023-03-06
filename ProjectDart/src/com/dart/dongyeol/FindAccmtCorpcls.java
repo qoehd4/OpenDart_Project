@@ -18,17 +18,35 @@ public class FindAccmtCorpcls {
 	
 
 
-	public  HashMap<String, String> findCls_Accmt() throws Exception {
+
+	public HashMap<String, String> corpCls_accMt;
+	
+	
+	public FindAccmtCorpcls() {
+		super();
+		try {
+			findCls_Accmt();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+
+	public void findCls_Accmt() throws Exception  {
 		
 		HashMap<String, String> corpName_corpCode = findCodeName();
 		HashMap<String, String> corpCls_accMt = new HashMap<>();
 		
 		for(String key:corpName_corpCode.keySet()) {
-				
+			
+			System.out.println("시작!!!!!!!!!");
+			//요청 url 생성
 			String url = "https://opendart.fss.or.kr/api/company.json?crtfc_key=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx&corp_code=name";
 			url = url.replace("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx","182023b0d0bb93439f2cdd9f8f8ed93215fb72dd");
 			url = url.replace("name",corpName_corpCode.get(key));
 			
+			//연결후 인풋스트림 받은후 저장
 			URL requesturl = new URL(url);
 			HttpURLConnection conn = (HttpURLConnection) requesturl.openConnection();
 			BufferedReader bf = new BufferedReader(new InputStreamReader(conn.getInputStream(),"UTF-8"));
@@ -36,21 +54,28 @@ public class FindAccmtCorpcls {
 			String inputline = "";
 			
 			while((inputline=bf.readLine()) != null) sb.append(inputline);
-			bf.close();
+			bf.close(); // inputstream을 받은 객체에서 클로스 메서드를 실행하면 연결이 해제된다.
 			String response = sb.toString();
 			
+			//json 형식 응답데이터 처리
 			JSONParser parser = new JSONParser();
 			JSONObject corpIntroduction = (JSONObject) parser.parse(response);
 			
 			String corp_cls = corpIntroduction.get("corp_cls").toString();
 			String acc_mt = corpIntroduction.get("acc_mt").toString();
 			
-			corpCls_accMt.put(corp_cls, acc_mt);
+			System.out.println("{"+corp_cls+":"+acc_mt+"}");
+//			corpCls_accMt.put(corp_cls, acc_mt);
+			
+			Thread.sleep(250);
+			
+			
+			
 	
 			
 		}
 			
-		return corpCls_accMt;
+		this.corpCls_accMt = corpCls_accMt;
 
 		
 	}

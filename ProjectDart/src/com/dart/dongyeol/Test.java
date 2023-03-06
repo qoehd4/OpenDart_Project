@@ -1,5 +1,6 @@
 package com.dart.dongyeol;
 
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -8,6 +9,7 @@ import java.util.HashMap;
 public class Test {
 
 	public static void main(String[] args) throws Exception {
+		
 //		CorpFinanceData corp = new CorpFinanceData("182023b0d0bb93439f2cdd9f8f8ed93215fb72dd", "카카오", "2021", "CFS");//		HashMap<String, Long> corpData = corp.getFinancialData();
 //		ArrayList<String> accountNames = new ArrayList<>();
 //		
@@ -22,13 +24,19 @@ public class Test {
 //		System.out.println((double) paidDivdend/netIncome);
 		
 		
+		
+		
+		
+		
+		
 		FindAccmtCorpcls data = new FindAccmtCorpcls();
-		HashMap<String, String> data1 = data.findCls_Accmt();
 		
 		
-		for(String key:data1.keySet()) {
-			System.out.println("{"+key+":"+data1.get(key)+"}");
-		}
+	
+		
+//		for(String key:data1.keySet()) {
+//			System.out.println("{"+key+":"+data1.get(key)+"}");
+//		}
 
 	
 		
