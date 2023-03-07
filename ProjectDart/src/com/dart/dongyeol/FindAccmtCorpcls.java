@@ -5,7 +5,9 @@ import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -13,15 +15,21 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
+import lombok.Getter;
 
+@Getter
 public class FindAccmtCorpcls {
 	
-
-
-
-	public HashMap<String, String> corpCls_accMt;
+	
+	@SuppressWarnings("unused")
+	private List<String> corpCls;
+	@SuppressWarnings("unused")
+	private List<String> accMt;
 	
 	
+	
+
+
 	public FindAccmtCorpcls() {
 		super();
 		try {
@@ -36,11 +44,11 @@ public class FindAccmtCorpcls {
 	public void findCls_Accmt() throws Exception  {
 		
 		HashMap<String, String> corpName_corpCode = findCodeName();
-		HashMap<String, String> corpCls_accMt = new HashMap<>();
+		List<String> corpCls = new ArrayList<>();
+		List<String> accMt = new ArrayList<>();
 		
 		for(String key:corpName_corpCode.keySet()) {
 			
-			System.out.println("시작!!!!!!!!!");
 			//요청 url 생성
 			String url = "https://opendart.fss.or.kr/api/company.json?crtfc_key=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx&corp_code=name";
 			url = url.replace("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx","182023b0d0bb93439f2cdd9f8f8ed93215fb72dd");
@@ -64,19 +72,15 @@ public class FindAccmtCorpcls {
 			String corp_cls = corpIntroduction.get("corp_cls").toString();
 			String acc_mt = corpIntroduction.get("acc_mt").toString();
 			
-			System.out.println("{"+corp_cls+":"+acc_mt+"}");
-//			corpCls_accMt.put(corp_cls, acc_mt);
+			corpCls.add(corp_cls);
+			accMt.add(acc_mt);
 			
 			Thread.sleep(250);
-			
-			
-			
-	
-			
+						
 		}
-			
-		this.corpCls_accMt = corpCls_accMt;
-
+		
+		this.corpCls = corpCls;
+		this.accMt=accMt;
 		
 	}
 
