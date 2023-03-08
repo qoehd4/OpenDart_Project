@@ -10,14 +10,11 @@ public class Test {
 
 	public static void main(String[] args) throws Exception {
 		
-		CorpFinanceData corp = new CorpFinanceData("182023b0d0bb93439f2cdd9f8f8ed93215fb72dd", "대상", "2021", "CFS");		HashMap<String, Long> corpData = corp.getFinancialData();
-		ArrayList<String> accountNames = new ArrayList<>();
+		//재무 정보 받아오기
+//		CorpFinanceData corp = new CorpFinanceData("182023b0d0bb93439f2cdd9f8f8ed93215fb72dd", "대상", "2021", "CFS");//		HashMap<String, Long> corpData = corp.getFinancialData();
 		
-		for(String key:corpData.keySet()) {
-			accountNames.add(key);
-			System.out.println("{"+key+":"+corpData.get(key)+"}");
-		}
-		System.out.println(accountNames);
+		
+	
 		
 
 		
