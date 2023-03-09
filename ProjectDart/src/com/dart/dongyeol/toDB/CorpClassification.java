@@ -15,6 +15,34 @@ import org.json.simple.parser.ParseException;
 public class CorpClassification {
 	
 	public static void main(String[] args) throws Exception{
+		
+		List<CorpVO> corpVoList = generateCorpVoList();
+		
+		long accMt12=corpVoList.stream().filter(t ->t.getAcc_mt().equals("12")).count();
+		System.out.println("12월 결산 기업 수:" + accMt12);
+		
+		long numKospi=corpVoList.stream().filter(t ->t.getCorp_cls().equals("Y")).count();
+		long numKosdaq=corpVoList.stream().filter(t ->t.getCorp_cls().equals("K")).count();
+		long numKonex=corpVoList.stream().filter(t ->t.getCorp_cls().equals("N")).count();
+		long numOther=corpVoList.stream().filter(t ->t.getCorp_cls().equals("E")).count();
+		
+		
+		System.out.println("코스피 총기업수:"+numKospi);
+		System.out.println("코스닥 총기업수:"+numKosdaq);
+		System.out.println("코넥스 총기업수:"+numKonex);
+		System.out.println("기타 총기업수:"+numOther);
+		
+		
+		
+		
+		
+		
+	}
+
+
+
+	public static List<CorpVO> generateCorpVoList() {
+		
 		List<String> corpJsons = importCorpJson();
 		
 		List<CorpVO> corpVO=corpJsons.stream()
@@ -39,11 +67,13 @@ public class CorpClassification {
 		}).toList();
 		
 		
+		System.out.println(corpVO.size()+"개의 기업객체 생성완료되었습니다.");
 		
-		corpVO.stream().forEach(s ->System.out.println(s));
-		System.out.println("-----------------------------------------------------");
-		System.out.println(corpVO.size());
+		
+		return corpVO;
 	}
+
+
 
 	public static List<String> importCorpJson() {
 		List<String> corpJsons = new  ArrayList<>();
