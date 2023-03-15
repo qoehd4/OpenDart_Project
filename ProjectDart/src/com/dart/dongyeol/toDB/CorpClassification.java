@@ -1,6 +1,10 @@
 package com.dart.dongyeol.toDB;
 
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,21 +22,69 @@ public class CorpClassification {
 		
 		List<CorpVO> corpVoList = generateCorpVoList();
 		
-		long accMt12=corpVoList.stream().filter(t ->t.getAcc_mt().equals("12")).count();
-		System.out.println("12월 결산 기업 수:" + accMt12);
+//		long accMt12=corpVoList.stream().filter(t ->t.getAcc_mt().equals("12")).count();
+//		System.out.println("12월 결산 기업 수:" + accMt12);
+//		
+//		long numKospi=corpVoList.stream().filter(t ->t.getCorp_cls().equals("Y")).count();
+//		long numKosdaq=corpVoList.stream().filter(t ->t.getCorp_cls().equals("K")).count();
+//		long numKonex=corpVoList.stream().filter(t ->t.getCorp_cls().equals("N")).count();
+//		long numOther=corpVoList.stream().filter(t ->t.getCorp_cls().equals("E")).count();
+//		
+//		
+//		System.out.println("코스피 총기업수:"+numKospi);
+//		System.out.println("코스닥 총기업수:"+numKosdaq);
+//		System.out.println("코넥스 총기업수:"+numKonex);
+//		System.out.println("기타 총기업수:"+numOther);
+	
+		List<CorpVO> corpVoList_Kospi_kosdaq =corpVoList.stream().filter(t ->{
+			return (t.getCorp_cls().equals("Y") || t.getCorp_cls().equals("K")) && t.getAcc_mt().equals("12");
+		}).toList();
 		
-		long numKospi=corpVoList.stream().filter(t ->t.getCorp_cls().equals("Y")).count();
-		long numKosdaq=corpVoList.stream().filter(t ->t.getCorp_cls().equals("K")).count();
-		long numKonex=corpVoList.stream().filter(t ->t.getCorp_cls().equals("N")).count();
-		long numOther=corpVoList.stream().filter(t ->t.getCorp_cls().equals("E")).count();
+		System.out.println(corpVoList_Kospi_kosdaq.stream().count());
+		ConnectionMySQL connTodb = new ConnectionMySQL();
+		
+//		corpVoList_Kospi_kosdaq.stream().forEach(t ->{
+//			connTodb.insert(t.getCorp_code(), t.getStock_code(), t.getStock_name(), t.getCorp_cls(), t.getInduty_code());
+//		});
+		
+		corpVoList_Kospi_kosdaq.stream().forEach(t -> {
+			String[] years = new String [] {"2015","2016","2017","2018","2019","2020","2021"};
+			for(String year:years) {
+				String response = null;
+				String baseurl = 
+				"https://opendart.fss.or.kr/api/fnlttSinglAcntAll.json?crtfc_key=79d11269739011dcb7291e0238c06aaf57ac855a&corp_code=" + t.getCorp_code()
+				+"&bsns_year="+ year + "&reprt_code=11011&fs_div=OFS";
+				
+				try {
+					URL url = new URL(baseurl);
+					HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+					BufferedReader bf = new BufferedReader(new InputStreamReader(conn.getInputStream(),"UTF-8"));
+					StringBuffer sb = new StringBuffer();
+					String inputline;
+					while((inputline=bf.readLine())!=null) sb.append(inputline);
+					bf.close();
+					
+					response = sb.toString();
+					
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				
+				connTodb.insert(t.getCorp_code(), year, "OFS", response);
+				
+				try {
+					Thread.sleep(100);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}	
+		});
 		
 		
-		System.out.println("코스피 총기업수:"+numKospi);
-		System.out.println("코스닥 총기업수:"+numKosdaq);
-		System.out.println("코넥스 총기업수:"+numKonex);
-		System.out.println("기타 총기업수:"+numOther);
 		
 		
+		
+
 		
 		
 		
