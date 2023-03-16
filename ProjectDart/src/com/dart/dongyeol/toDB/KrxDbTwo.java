@@ -5,8 +5,6 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.TreeMap;
 
 import org.json.simple.JSONArray;
@@ -17,20 +15,12 @@ public class KrxDbTwo {
 
 	public static void main(String[] args) throws Exception {
 		ConnectionMySQL conDb = new ConnectionMySQL();
-		List<String> price = new ArrayList<>();
 		TreeMap<String, Integer> kospi = conDb.getColumn("market_kospi");
-		
-//		for (String k : kospi.keySet()) {
-//			System.out.print(k+":");
-//			System.out.print(kospi.get(k));
-//			System.out.println();
-//		}
-		
-			
+		String day = "20230306";
+		StringBuffer sbQuery = new StringBuffer(day+",");
 		
 		
-		String baseUrl = "http://data-dbg.krx.co.kr/svc/apis/sto/stk_bydd_trd.json?basDd=20230306";
-		//String requstUrl=baseUrl.replace("day", day);
+		String baseUrl = "http://data-dbg.krx.co.kr/svc/apis/sto/stk_bydd_trd.json?basDd="+day ;
 		
 		
 		URL url = new URL(baseUrl);
@@ -51,7 +41,6 @@ public class KrxDbTwo {
 		JSONObject  obj =(JSONObject) parser.parse(response);
 		JSONArray marketData = (JSONArray) obj.get("OutBlock_1");
 		
-		int count=0;
 		for (int i = 0; i < marketData.size(); i++) {
 			JSONObject corp = (JSONObject) marketData.get(i);
 			String stockCode = (String) corp.get("ISU_CD");
@@ -59,25 +48,32 @@ public class KrxDbTwo {
 			
 			if(kospi.containsKey(stockCode)) {
 				kospi.put(stockCode, stockPrice);
-				count++;
+				
 			}
 				
 		
 		}
 		
+		
+		
+		
+		
 		for (String k : kospi.keySet()) {
-			System.out.print(k+":");
-			System.out.print(kospi.get(k));
-			System.out.println();
+			sbQuery.append(kospi.get(k)).append(",");
 		}
 		
 		
 		
-		System.out.println(count);
+		sbQuery.deleteCharAt(sbQuery.length()-1);
+		
+		String queryInput = sbQuery.toString();
+		System.out.println(queryInput);
+		//conDb.insertPrice(queryInput);
 		
 		
 		
-
+		
+		
 		
 		
 		

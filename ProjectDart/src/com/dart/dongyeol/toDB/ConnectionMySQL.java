@@ -107,4 +107,32 @@ public class ConnectionMySQL {
     	
     }
 	
+    
+    public void insertPrice(String price) {
+    	String sql = "insert into market_kospi values(?)";
+    	
+    	PreparedStatement pstmt = null;
+    	try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.set(1, price);
+			
+			int result = pstmt.executeUpdate();
+            if(result==1) {
+                System.out.println("데이터 삽입 성공!");
+            }
+		} catch (Exception e) {
+            System.out.println("데이터 삽입 실패!");
+            System.out.println(e.getMessage());
+		} finally {
+			try {
+                if(pstmt!=null && !pstmt.isClosed()) {
+                    pstmt.close();
+                }
+            } catch (Exception e2) {}
+		}
+    	
+    	
+    }
+    
+    
 }
