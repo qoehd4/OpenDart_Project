@@ -1,9 +1,12 @@
 package com.dart.dongyeol.toDB;
 
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.TreeMap;
 
 
 public class ConnectionMySQL {
@@ -11,13 +14,13 @@ public class ConnectionMySQL {
 	private Connection conn;
 	private static final String USERNAME = "root";//DBMS접속 시 아이디
     private static final String PASSWORD = "BAE2095@";//DBMS접속 시 비밀번호
-    private static final String URL = "jdbc:mysql://localhost:3306/finanace_data_kr";//DBMS접속할 db명
+    private static final String URL = "jdbc:mysql://localhost:3306/testdb";//DBMS접속할 db명
     
     public ConnectionMySQL() {
     	
     	try {
             System.out.println("생성자");
-            //Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
             System.out.println("드라이버 로딩 성공");
 		} catch (Exception e) {		
@@ -28,7 +31,12 @@ public class ConnectionMySQL {
 		}
     	
     	
+    	
     }
+    
+    
+    
+   
     
     public void insert(String corp_code,String year,String cfs_ofs,String json_response) {
     	String sql = "insert into finanace_statement values(?,?,?,?)";
@@ -54,6 +62,48 @@ public class ConnectionMySQL {
                 }
             } catch (Exception e2) {}
 		}
+    	
+    }
+    
+    public void addColumn(String name) {
+    	String sql = "AlTER TABLE market_kosdaq ADD name INT";
+    	sql = sql.replace("name", "kosdaq"+name);
+    	
+    	try {
+    		java.sql.Statement st = conn.createStatement();
+    		int result =st.executeUpdate(sql);
+    		System.out.println(result);
+    		
+		} catch (Exception e) {
+            System.out.println("데이터 삽입 실패!");
+            System.out.println(e.getMessage());
+		} finally {
+			
+			try {
+
+            
+			} catch (Exception e2) {}
+		}
+    	
+    	
+    }
+    
+    public TreeMap<String, Integer> getColumn(String tableName) throws Exception{
+			
+    	
+    	TreeMap<String, Integer> result = new TreeMap<>();
+    	
+    	String sql = "SELECT  COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = ?";
+    	PreparedStatement pstmt = conn.prepareStatement(sql);
+    	pstmt.setString(1, tableName);
+    	ResultSet rs = pstmt.executeQuery();
+    	
+    	while(rs.next()) {
+    		if(!rs.getString(1).equals("Date")) result.put(rs.getString(1).replaceAll("[^0-9]", ""), 0);
+    	}
+    
+ 	
+    	return result;
     	
     }
 	

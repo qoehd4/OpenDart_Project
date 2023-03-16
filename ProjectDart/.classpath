@@ -11,7 +11,7 @@
 	<classpathentry kind="lib" path="lib/poi-ooxml-3.11.jar"/>
 	<classpathentry kind="lib" path="lib/poi-ooxml-schemas-3.11.jar"/>
 	<classpathentry kind="lib" path="lib/xmlbeans-2.6.0.jar"/>
-	<classpathentry kind="lib" path="C:/Users/qoehd/git/OpenDart_Project/ProjectDart/lib/lombok.jar"/>
-	<classpathentry kind="lib" path="C:/Users/qoehd/git/OpenDart_Project/ProjectDart/lib/mysql-connector-java-8.0.24.jar"/>
+	<classpathentry kind="lib" path="lib/lombok.jar"/>
+	<classpathentry kind="lib" path="lib/mysql-connector-java-8.0.24.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
