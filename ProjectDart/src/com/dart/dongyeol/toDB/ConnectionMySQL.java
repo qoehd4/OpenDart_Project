@@ -6,15 +6,16 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.TreeMap;
 
 
 public class ConnectionMySQL {
 	
 	private Connection conn;
-	private static final String USERNAME = "root";//DBMS접속 시 아이디
-    private static final String PASSWORD = "BAE2095@";//DBMS접속 시 비밀번호
-    private static final String URL = "jdbc:mysql://localhost:3306/testdb";//DBMS접속할 db명
+	private static final String USERNAME = "admin";//DBMS접속 시 아이디
+    private static final String PASSWORD = "BAE20958746";//DBMS접속 시 비밀번호
+    private static final String URL = "jdbc:mysql://finanacedb.cje5ijbkiorz.ap-northeast-2.rds.amazonaws.com:3306/finanace_data_kr";//DBMS접속할 db명
     
     public ConnectionMySQL() {
     	
@@ -108,15 +109,12 @@ public class ConnectionMySQL {
     }
 	
     
-    public void insertPrice(String price) {
-    	String sql = "insert into market_kospi values(?)";
-    	
-    	PreparedStatement pstmt = null;
+    public void insertPrice(String queryInput) throws Exception {
+    	String sql = "insert into market_kosdaq values(?)";
+    	sql = sql.replace("?", queryInput);
+    	Statement stmt = conn.createStatement();
     	try {
-			pstmt=conn.prepareStatement(sql);
-			pstmt.set(1, price);
-			
-			int result = pstmt.executeUpdate();
+			int result =stmt.executeUpdate(sql);
             if(result==1) {
                 System.out.println("데이터 삽입 성공!");
             }
@@ -125,8 +123,8 @@ public class ConnectionMySQL {
             System.out.println(e.getMessage());
 		} finally {
 			try {
-                if(pstmt!=null && !pstmt.isClosed()) {
-                    pstmt.close();
+                if(stmt!=null && !stmt.isClosed()) {
+                    stmt.close();
                 }
             } catch (Exception e2) {}
 		}
