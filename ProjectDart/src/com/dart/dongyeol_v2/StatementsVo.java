@@ -16,6 +16,7 @@ public class StatementsVo {
 	private BsVo balanceSheets;
 	private IsVo incomeStatements;
 	private CfsVo cashFlowStatements;
+	private CisVo comprehensiveIncomeStatements;
 	private int bns_year;
 	private boolean exist;
 	private String type;
@@ -29,6 +30,10 @@ public class StatementsVo {
 		List<JSONObject> is = new ArrayList<>();
 		List<JSONObject> bs = new ArrayList<>();
 		List<JSONObject> cfs = new ArrayList<>();
+		List<JSONObject> cis = new ArrayList<>();
+		
+		int isNumber =0; int bsNumber =0; int cfsNumber =0; int cisNumber=0;
+		
 		
 		JSONParser parser = new JSONParser();
 		JSONObject jobj = (JSONObject) parser.parse(dbResponse);
@@ -42,21 +47,30 @@ public class StatementsVo {
 				JSONObject account = (JSONObject) statments.get(i);
 				String  sj_div = account.get("sj_div").toString();
 				if(sj_div.equals("BS")) {
-					bs.add(account);
-				} else if(sj_div.equals("CIS")||sj_div.equals("IS")) {
-					is.add(account);
+					bs.add(account); bsNumber++;
+				} else if(sj_div.equals("IS")) {
+					is.add(account); isNumber++;
 				} else if(sj_div.equals("CF")) {
-					cfs.add(account);
-				}		
+					cfs.add(account); cfsNumber++;
+				} else if(sj_div.equals("CIS"))	{
+					cis.add(account); cisNumber++;
+				}
 			}
 			
-			balanceSheets = new BsVo(bs);
-			incomeStatements = new IsVo(is);
-			cashFlowStatements = new CfsVo(cfs);
+			balanceSheets = new BsVo(bs,bsNumber);
+			incomeStatements = new IsVo(is,isNumber);
+			cashFlowStatements = new CfsVo(cfs,cfsNumber);
+			comprehensiveIncomeStatements = new CisVo(cis,cisNumber);
 			
-		} else exist = false;
-		
-
+		} else {
+			exist = false;
+			balanceSheets = new BsVo(exist);
+			incomeStatements = new IsVo(exist);
+			cashFlowStatements = new CfsVo(exist);
+			comprehensiveIncomeStatements = new CisVo(exist);
+			
+		}
+			
 		
 	}
 
