@@ -7,12 +7,15 @@ public class TEST {
 	public static void main(String[] args) {
 		AwsMysqlDAO dao = new AwsMysqlDAO();
 		
-		String corpCode = dao.getcorpCode("세아제강");
-		List<StatementsVo> statements3yr  = dao.get3yrStatements(corpCode, "CFS");
+		String corpCode = dao.getcorpCode("강원에너지");
+		List<StatementsVo> statements3yr  = dao.get3yrStatements(corpCode, "OFS");
 		
 		
 		for (StatementsVo statement : statements3yr) {
-			System.out.println(statement);
+			BsVo balanceSheets = statement.getBalanceSheets();
+			balanceSheets.showEveryAccounts();
+			System.out.println("------------------------------------");
+			
 		}
 		
 		

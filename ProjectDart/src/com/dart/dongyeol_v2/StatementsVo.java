@@ -48,16 +48,17 @@ public class StatementsVo {
 				} else if(sj_div.equals("CF")) {
 					cfs.add(account);
 				}		
-			}		
+			}
+			
+			balanceSheets = new BsVo(bs);
+			incomeStatements = new IsVo(is);
+			cashFlowStatements = new CfsVo(cfs);
+			
 		} else exist = false;
 		
-		balanceSheets = new BsVo(bs);
-		incomeStatements = new IsVo(is);
-		cashFlowStatements = new CfsVo(cfs);		
+
 		
 	}
-
-
 
 	@Override
 	public String toString() {
