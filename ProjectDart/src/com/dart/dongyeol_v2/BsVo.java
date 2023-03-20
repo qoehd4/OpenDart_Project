@@ -101,4 +101,24 @@ public class BsVo {
 		}	
 		
 	}
+
+
+	public long getAmountBysimilar(String accountName) {
+		long amount=0;		
+		if(exist) {
+			
+			for (Account account : accountsBS) {
+				if(account.getAccountName().contains(accountName)) amount = account.getThisYearAmount();
+			}
+			
+			return amount;
+			
+		} else {
+			return amount;
+		}	
+		
+	}
+
+
+
 }

@@ -106,5 +106,21 @@ public class CisVo {
 		
 	}
 	
+	public long getAmountBysimilar(String accountName) {
+		long amount=0;		
+		if(exist) {
+			
+			for (Account account : accountsCIS) {
+				if(account.getAccountName().contains(accountName)) amount = account.getThisYearAmount();
+			}
+			
+			return amount;
+			
+		} else {
+			return amount;
+		}	
+		
+	}
+	
 	
 }

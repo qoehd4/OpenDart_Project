@@ -7,7 +7,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 public class AwsMysqlDAO {
@@ -113,6 +116,83 @@ public class AwsMysqlDAO {
 		
 	}
 	
+	public HashMap<String, String> getinfoOfAlllistedCompany() {
+		HashMap<String, String> corpcodesAlllistedCompany = new HashMap<>();
+		String corpCode = null;
+		String corp_cls = null;
+		String sql = "SELECT corp_code,corp_cls FROM introduction";
+		
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+			
+			pst = conn.prepareStatement(sql);
+			rs=pst.executeQuery();
+			
+			while(rs.next()) {
+				corpCode = rs.getString(1);
+				corp_cls = rs.getString(2);
+				corpcodesAlllistedCompany.put(corpCode, corp_cls);
+			}
+			
+		} catch (Exception e) {
+			System.out.println("기업코드를 조회하는데 문제가 발생했습니다.");
+			e.printStackTrace();
+		} finally {
+			try {
+				pst.close();
+				conn.close();
+			} catch (SQLException e) {
+				System.out.println("자원을 반납하는데 문제가 발생했습니다.");
+				e.printStackTrace();
+			}
+			
+			
+		}
+		
+		
+		
+		return corpcodesAlllistedCompany;
+		
+	}
+	
+	public Set<String> getCorpcodeOfAllHoldings() {
+		Set<String> corpcodesAllHoldings= new HashSet<>();
+		String corpCode = null;
+		String sql = "SELECT corp_code FROM holdings";
+		
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+			
+			pst = conn.prepareStatement(sql);
+			rs=pst.executeQuery();
+			
+			while(rs.next()) {
+				corpCode = rs.getString(1);
+				corpcodesAllHoldings.add(corpCode);
+			}
+			
+		} catch (Exception e) {
+			System.out.println("기업코드를 조회하는데 문제가 발생했습니다.");
+			e.printStackTrace();
+		} finally {
+			try {
+				pst.close();
+				conn.close();
+			} catch (SQLException e) {
+				System.out.println("자원을 반납하는데 문제가 발생했습니다.");
+				e.printStackTrace();
+			}
+			
+			
+		}
+		
+		
+		
+		return corpcodesAllHoldings ;
+		
+	}
 	
 	
 	
