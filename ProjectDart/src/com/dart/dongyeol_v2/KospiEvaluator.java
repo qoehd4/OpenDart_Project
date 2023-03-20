@@ -25,10 +25,8 @@ public class KospiEvaluator {
 	public boolean checkRevenue() {
 		StatementsVo lastestStatements;
 
-		if (checkHoldings())
-			lastestStatements = cfsStatements3yr.get(0);
-		else
-			lastestStatements = ofsStatements3yr.get(0);
+		if (checkHoldings()) lastestStatements = cfsStatements3yr.get(0);
+		else lastestStatements = ofsStatements3yr.get(0);
 
 		IsVo incomeStatement = lastestStatements.getIncomeStatements();
 		CisVo compreIncomeStatement = lastestStatements.getComprehensiveIncomeStatements();
@@ -36,18 +34,14 @@ public class KospiEvaluator {
 		if (compreIncomeStatement.getAccountNumber() > incomeStatement.getAccountNumber()) {
 			long revenue = compreIncomeStatement.getAmount(0);
 
-			if (revenue > 5000000000L)
-				return true;
-			else
-				return false;
+			if (revenue > 5000000000L) return true;
+			else return false;
 
 		} else {
 			long revenue = incomeStatement.getAmount(0);
 
-			if (revenue > 5000000000L)
-				return true;
-			else
-				return false;
+			if (revenue > 5000000000L) return true;
+			else return false;
 		}
 
 	}

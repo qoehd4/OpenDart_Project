@@ -102,7 +102,7 @@ public class KosdaqEvaluator {
 		
 	public boolean checkCIBT() {
 		int count = 0;
-		for (int i = 0; i < cfsStatements3yr.size(); i++) {
+		for (int i = 0; i < ofsStatements3yr.size(); i++) {
 			 StatementsVo cfs = cfsStatements3yr.get(i);
 			 StatementsVo ofs = ofsStatements3yr.get(i);
 			 IsVo incomeStatement = null;
@@ -122,7 +122,7 @@ public class KosdaqEvaluator {
 			 }
 			 
 			 if(compreIncomeStatement.getAccountNumber()>incomeStatement.getAccountNumber()) {
-				 cibt = compreIncomeStatement.getAmountBysimilar("법인세비용차감전");
+				 cibt = compreIncomeStatement.getAmountBysimilar("법인세비용차감전순이익");
 				 totalEquity = balanceSheet.getAmount("자본총계");
 				 long limit = (long) (totalEquity * (-0.45));
 				 
@@ -132,7 +132,7 @@ public class KosdaqEvaluator {
 				 	
 				 	
 			 } else {
-			 	 cibt = incomeStatement.getAmountBysimilar("법인세비용차감전");
+			 	 cibt = incomeStatement.getAmountBysimilar("법인세비용차감전순이익");
 			 	 totalEquity = balanceSheet.getAmount("자본총계");
 			 	 long limit = (long) (totalEquity * (-0.45));
 			 	 
@@ -146,9 +146,9 @@ public class KosdaqEvaluator {
 		
 		
 		 if(count>0) {
-			 return true;
-		 } else {
 			 return false;
+		 } else {
+			 return true;
 		 }
 	
 	
