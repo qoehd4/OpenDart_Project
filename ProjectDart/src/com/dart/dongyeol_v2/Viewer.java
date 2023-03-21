@@ -8,9 +8,12 @@ public class Viewer {
 			viewRevecueCond(kospiEval.checkRevenue());
 			
 			if(kospiEval.checkCapitalImpairment()==false || kospiEval.checkRevenue()==false) {
-				System.out.println("------------------------");
-				System.out.println("상장폐지 위험이 있습니다.");
-			} else System.out.println("안전합니다.");
+				System.out.println("-------------------------");
+				System.out.println("상장폐지 위험이 있습니다.!!!!!!!!!");
+			} else {
+				System.out.println("안전합니다.");
+				System.out.println("-------------------------");
+			}
 			
 			
 		} else if(eval instanceof KosdaqEvaluator kosdaqEval) {
@@ -21,9 +24,13 @@ public class Viewer {
 			
 			if(kosdaqEval.checkCapitalImpairment()==false||kosdaqEval.checkRevenue()==false
 					||kosdaqEval.checkEquityAmount()==false||kosdaqEval.checkCIBT()==false) {
-				System.out.println("------------------------");
-				System.out.println("상장폐지 위험이 있습니다.");
-			} else System.out.println("안전합니다.");
+				System.out.println("-------------------------");
+				System.out.println("상장폐지 위험이 있습니다.!!!!!!!!!!!!");
+			} else {
+				System.out.println("안전합니다.");
+				System.out.println("-------------------------");
+			}
+				
 			
 		}
 		

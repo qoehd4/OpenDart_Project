@@ -18,7 +18,7 @@ public class TEST {
 		
 		
 	
-		
+		/*
 		for (StatementsVo statement : statements3yr) {
 			IsVo incomestatements = statement.getIncomeStatements();
 			CisVo compreIncomestatements =statement.getComprehensiveIncomeStatements();
