@@ -9,7 +9,7 @@ public class TEST {
 	public static void main(String[] args) {
 		AwsMysqlDAO dao = new AwsMysqlDAO();
 		
-		String corpCode = dao.getcorpCode("신한지주");
+		String corpCode = dao.getcorpCode("엘아이에스");
 		List<StatementsVo> statements3yr  = dao.get3yrStatements(corpCode, "CFS");
 
 		
@@ -17,8 +17,8 @@ public class TEST {
 		
 		
 		
+	
 		
-		/*
 		for (StatementsVo statement : statements3yr) {
 			IsVo incomestatements = statement.getIncomeStatements();
 			CisVo compreIncomestatements =statement.getComprehensiveIncomeStatements();
@@ -35,11 +35,11 @@ public class TEST {
 			
 			
 		}
-		*/
+		
 
 		
 		
-		
+		/*
 		for (StatementsVo statement : statements3yr) {
 			System.out.println(statement.getBns_year());
 			BsVo balanceSheets = statement.getBalanceSheets();

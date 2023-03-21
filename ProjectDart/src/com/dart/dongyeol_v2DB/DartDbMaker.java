@@ -1,5 +1,4 @@
-package com.dart.dongyeol.toDB;
-
+package com.dart.dongyeol_v2DB;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -8,7 +7,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -16,29 +14,12 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import com.dart.dongyeol_v2DB.ConnectionMySQL;
-import com.dart.dongyeol_v2DB.CorpVO;
-
-public class CorpClassification {
+public class DartDbMaker {
 	
 	public static void main(String[] args) throws Exception{
 		
 		List<CorpVO> corpVoList = generateCorpVoList();
 		
-//		long accMt12=corpVoList.stream().filter(t ->t.getAcc_mt().equals("12")).count();
-//		System.out.println("12월 결산 기업 수:" + accMt12);
-//		
-//		long numKospi=corpVoList.stream().filter(t ->t.getCorp_cls().equals("Y")).count();
-//		long numKosdaq=corpVoList.stream().filter(t ->t.getCorp_cls().equals("K")).count();
-//		long numKonex=corpVoList.stream().filter(t ->t.getCorp_cls().equals("N")).count();
-//		long numOther=corpVoList.stream().filter(t ->t.getCorp_cls().equals("E")).count();
-//		
-//		
-//		System.out.println("코스피 총기업수:"+numKospi);
-//		System.out.println("코스닥 총기업수:"+numKosdaq);
-//		System.out.println("코넥스 총기업수:"+numKonex);
-//		System.out.println("기타 총기업수:"+numOther);
-	
 		List<CorpVO> corpVoList_Kospi_kosdaq =corpVoList.stream().filter(t ->{
 			return (t.getCorp_cls().equals("Y") || t.getCorp_cls().equals("K")) && t.getAcc_mt().equals("12");
 		}).toList();
@@ -46,9 +27,6 @@ public class CorpClassification {
 		System.out.println(corpVoList_Kospi_kosdaq.stream().count());
 		ConnectionMySQL connTodb = new ConnectionMySQL();
 		
-//		corpVoList_Kospi_kosdaq.stream().forEach(t ->{
-//			connTodb.insert(t.getCorp_code(), t.getStock_code(), t.getStock_name(), t.getCorp_cls(), t.getInduty_code());
-//		});
 		
 		corpVoList_Kospi_kosdaq.stream().forEach(t -> {
 			String[] years = new String [] {"2015","2016","2017","2018","2019","2020","2021"};
@@ -83,14 +61,7 @@ public class CorpClassification {
 			}	
 		});
 		
-		
-		
-		
-		
-
-		
-		
-		
+	
 		
 	}
 
@@ -157,4 +128,9 @@ public class CorpClassification {
 	}
 
 	
+	
+	
+	
+	
+
 }

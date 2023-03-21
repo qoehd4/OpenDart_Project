@@ -122,7 +122,7 @@ public class KosdaqEvaluator {
 			 }
 			 
 			 if(compreIncomeStatement.getAccountNumber()>incomeStatement.getAccountNumber()) {
-				 cibt = compreIncomeStatement.getAmountBysimilar("법인세비용차감전순이익");
+				 cibt = compreIncomeStatement.getAmountBysimilar("법인세비용차감전");
 				 totalEquity = balanceSheet.getAmount("자본총계");
 				 long limit = (long) (totalEquity * (-0.45));
 				 
