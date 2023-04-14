@@ -19,7 +19,7 @@ import java.util.TreeMap;
 public class AwsMysqlDAO {
 	
 	private static final String USERNAME = "admin";
-    private static final String PASSWORD = "BAE20958746";
+    private static final String PASSWORD = "";
     private static final String URL = "jdbc:mysql://finanacedb.cje5ijbkiorz.ap-northeast-2.rds.amazonaws.com:3306/finanace_data_kr";
     
 	private Connection conn;
