@@ -14,7 +14,7 @@ public class ConnectionMySQL {
 	
 	private Connection conn;
 	private static final String USERNAME = "admin";//DBMS접속 시 아이디
-    private static final String PASSWORD = "BAE20958746";//DBMS접속 시 비밀번호
+    private static final String PASSWORD = "";//DBMS접속 시 비밀번호
     private static final String URL = "jdbc:mysql://finanacedb.cje5ijbkiorz.ap-northeast-2.rds.amazonaws.com:3306/finanace_data_kr";//DBMS접속할 db명
     
     public ConnectionMySQL() {
